@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html th:replace="layouts/masterLayout :: layout(~{::main})" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main role="main">
+    <div class="container">
+        <div class="row mb-3 py-3">
+            <div class="col-md-2 offset-md-2 ">
+                <a th:href="@{/ui/cart/clear}" class="rounded shadow p-3 bg-warning" >Clear Cart</a>
+
+
+            </div>
+            <div class="col-md-3 offset-md-1 ">
+                <a th:href="@{/}" class="rounded shadow p-3 bg-warning">Continue Shopping</a>
+            </div>
+            <div class="col-md-3 offset-md-1 ">
+                <a href="javascript:document.myForm.submit()"  class="rounded shadow p-3 bg-warning">Proceed to Checkout</a>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <form name="myForm" th:action="@{/ui/product/checkout}" th:object="${product}" method="post">
+                    <div class="card custom-bg">
+                        <table class="table-striped table">
+                            <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="cart : ${cartItems}">
+                                <td><img th:src="@{'/bootstrap/images/products/'+${cart.description}+'.png'}" alt=""></td>
+                                <td th:text="${cart.description}"></td>
+
+                                <td th:text="${'$'+cart.price}"></td>
+                                <td><input type="text" class="form-control" th:field="*{quantityList}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="submit" hidden>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
